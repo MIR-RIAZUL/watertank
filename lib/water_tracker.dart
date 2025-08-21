@@ -61,11 +61,24 @@ class _water_trackerState extends State<water_tracker> {
               ),
             ),
             SizedBox(height: 30),
-            CircularProgressIndicator(
-              backgroundColor: Colors.white,
-              strokeWidth: 10,
-              value: 0.5,
-              // valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+            Stack(
+              // alignment: Alignment.center,
+              children: [
+                CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  strokeWidth: 10,
+                  value: 0.5,
+                  // valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                ),
+                Text(
+                  "70%",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ],
         )),
