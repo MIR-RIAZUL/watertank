@@ -10,8 +10,19 @@ class water_tracker extends StatefulWidget {
 }
 
 class _water_trackerState extends State<water_tracker> {
+  int current_intake = 0;
+  final int goal_intake = 2000;
+  final int max_intake = 5000;
+
+  void add_water(int amount) {
+    setState(() {
+      current_intake = (current_intake + amount).clamp(0, max_intake);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    double progress = (current_intake / max_intake).clamp(0, 1);
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
@@ -51,7 +62,7 @@ class _water_trackerState extends State<water_tracker> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    '2000 ltr',
+                    '${current_intake} LTR',
 
                     style: TextStyle(
                       fontSize: 20,
@@ -73,12 +84,12 @@ class _water_trackerState extends State<water_tracker> {
                     backgroundColor: Colors.white,
                     // valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                     strokeWidth: 10,
-                    value: 0.7,
+                    value: progress,
                     // valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                   ),
                 ),
                 Text(
-                  "70%",
+                  "${(progress * 100).toString()}%",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
@@ -93,13 +104,13 @@ class _water_trackerState extends State<water_tracker> {
               children: [
                 Add_water_button(
                   amount: 100,
-                  onclick: () {},
+                  onclick: () => add_water(100),
                   icon: Icons.water_drop,
                 ),
-                Add_water_button(amount: 200, onclick: () {}),
-                Add_water_button(amount: 500, onclick: () {}),
-                Add_water_button(amount: 1000, onclick: () {}),
-                Add_water_button(amount: 2000, onclick: () {}),
+                Add_water_button(amount: 200, onclick: () => add_water(200)),
+                Add_water_button(amount: 500, onclick: () => add_water(500)),
+                Add_water_button(amount: 1000, onclick: () => add_water(1000)),
+                Add_water_button(amount: 2000, onclick: () => add_water(2000)),
               ],
             ),
             SizedBox(height: 10),
