@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'add_water_button.dart';
+
 class water_tracker extends StatefulWidget {
   const water_tracker({super.key});
 
@@ -60,7 +62,7 @@ class _water_trackerState extends State<water_tracker> {
                 ],
               ),
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 70),
             Stack(
               alignment: Alignment.center,
               children: [
@@ -86,15 +88,7 @@ class _water_trackerState extends State<water_tracker> {
               ],
             ),
             SizedBox(height: 10),
-            Wrap(
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.water_drop),
-                  label: Text("Add Water"),
-                ),
-              ],
-            ),
+            Wrap(children: [Add_water_button()]),
           ],
         )),
       ),
