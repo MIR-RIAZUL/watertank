@@ -12,7 +12,7 @@ class water_tracker extends StatefulWidget {
 class _water_trackerState extends State<water_tracker> {
   int current_intake = 0;
   final int goal_intake = 2000;
-  final int max_intake = 5000;
+  final int max_intake = 10000;
 
   void add_water(int amount) {
     setState(() {
@@ -89,7 +89,7 @@ class _water_trackerState extends State<water_tracker> {
                   ),
                 ),
                 Text(
-                  "${(progress * 100).toString()}%",
+                  "${(progress * 100).toInt()}%",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
@@ -102,11 +102,7 @@ class _water_trackerState extends State<water_tracker> {
             Wrap(
               spacing: 30,
               children: [
-                Add_water_button(
-                  amount: 100,
-                  onclick: () => add_water(100),
-                  icon: Icons.water_drop,
-                ),
+                Add_water_button(amount: 100, onclick: () => add_water(100)),
                 Add_water_button(amount: 200, onclick: () => add_water(200)),
                 Add_water_button(amount: 500, onclick: () => add_water(500)),
                 Add_water_button(amount: 1000, onclick: () => add_water(1000)),
@@ -114,6 +110,16 @@ class _water_trackerState extends State<water_tracker> {
               ],
             ),
             SizedBox(height: 10),
+            SizedBox(
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    current_intake = 0;
+                  });
+                },
+                child: Text("Reset tank"),
+              ),
+            ),
           ],
         )),
       ),
