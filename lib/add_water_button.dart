@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Add_water_button extends StatelessWidget {
+class Add_water_button extends StatefulWidget {
   final int amount;
   IconData? icon;
   final VoidCallback onclick;
@@ -12,6 +12,11 @@ class Add_water_button extends StatelessWidget {
   });
 
   @override
+  State<Add_water_button> createState() => _Add_water_buttonState();
+}
+
+class _Add_water_buttonState extends State<Add_water_button> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 150,
@@ -19,10 +24,10 @@ class Add_water_button extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: ElevatedButton.icon(
           onPressed: () {
-            onclick();
+            widget.onclick();
           },
-          icon: Icon(icon ?? Icons.water_drop),
-          label: Text("+${amount}"),
+          icon: Icon(widget.icon ?? Icons.water_drop),
+          label: Text("+${widget.amount}"),
         ),
       ),
     );
