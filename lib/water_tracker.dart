@@ -11,10 +11,10 @@ class _water_trackerState extends State<water_tracker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         title: Text("Water Tracker"),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white24,
       ),
       body: Center(
         child: (Column(
@@ -25,11 +25,11 @@ class _water_trackerState extends State<water_tracker> {
               // width: 110,
               // height: 60,
               decoration: BoxDecoration(
-                color: Colors.teal,
+                color: Colors.grey,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.shade100,
                     spreadRadius: 5,
                     blurRadius: 7,
                     offset: Offset(0, 3),
@@ -60,21 +60,26 @@ class _water_trackerState extends State<water_tracker> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 100),
             Stack(
-              // alignment: Alignment.center,
+              alignment: Alignment.center,
               children: [
-                CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                  strokeWidth: 10,
-                  value: 0.5,
-                  // valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                Container(
+                  width: 150,
+                  height: 150,
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    // valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    strokeWidth: 10,
+                    value: 0.7,
+                    // valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                  ),
                 ),
                 Text(
                   "70%",
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
