@@ -88,7 +88,21 @@ class _water_trackerState extends State<water_tracker> {
               ],
             ),
             SizedBox(height: 10),
-            Wrap(children: [Add_water_button()]),
+            Wrap(
+              spacing: 30,
+              children: [
+                Add_water_button(
+                  amount: 100,
+                  onclick: () {},
+                  icon: Icons.water_drop,
+                ),
+                Add_water_button(amount: 200, onclick: () {}),
+                Add_water_button(amount: 500, onclick: () {}),
+                Add_water_button(amount: 1000, onclick: () {}),
+                Add_water_button(amount: 2000, onclick: () {}),
+              ],
+            ),
+            SizedBox(height: 10),
           ],
         )),
       ),
