@@ -39,9 +39,9 @@ class _water_trackerState extends State<water_tracker> {
           children: [
             SizedBox(height: 40),
             Container(
-              padding: EdgeInsets.all(30),
-              // width: 110,
-              // height: 60,
+              padding: EdgeInsets.all(40),
+              // width: 180,
+              // height: 80,
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(10),
@@ -78,7 +78,7 @@ class _water_trackerState extends State<water_tracker> {
                 ],
               ),
             ),
-            SizedBox(height: 70),
+            SizedBox(height: 50),
             Stack(
               alignment: Alignment.center,
               children: [
@@ -117,17 +117,6 @@ class _water_trackerState extends State<water_tracker> {
             SizedBox(height: 10),
             SizedBox(
               child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    current_intake = 0;
-                  });
-                },
-                child: Text("Reset tank"),
-              ),
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              child: ElevatedButton(
                 // Optional: cancel leak when filling, then fill the tank
                 onPressed: () {
                   _leakTimer?.cancel();
@@ -138,33 +127,50 @@ class _water_trackerState extends State<water_tracker> {
                 child: Text("Fill tank"),
               ),
             ),
-            SizedBox(height: 10),
-            SizedBox(
-              child: ElevatedButton(
-                // Replace your "leak" button onPressed with this
-                onPressed: () {
-                  // Do NOT call initState() here
-                  if (_leakTimer?.isActive ?? false)
-                    return; // prevent multiple timers
+            SizedBox(height: 50),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 5,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      current_intake = 0;
+                    });
+                  },
+                  child: Text("Reset tank"),
+                ),
+                SizedBox(height: 10),
+                SizedBox(
+                  child: ElevatedButton(
+                    // Replace your "leak" button onPressed with this
+                    onPressed: () {
+                      // Do NOT call initState() here
+                      if (_leakTimer?.isActive ?? false)
+                        return; // prevent multiple timers
 
-                  _leakTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-                    if (!mounted) return;
+                      _leakTimer = Timer.periodic(const Duration(seconds: 1), (
+                        _,
+                      ) {
+                        if (!mounted) return;
 
-                    if (current_intake > 0) {
-                      setState(() {
-                        // adjust the step as needed (e.g., 1, 10, 100 mL per second)
-                        current_intake = (current_intake - 1).clamp(
-                          0,
-                          max_intake,
-                        );
+                        if (current_intake > 0) {
+                          setState(() {
+                            // adjust the step as needed (e.g., 1, 10, 100 mL per second)
+                            current_intake = (current_intake - 1).clamp(
+                              0,
+                              max_intake,
+                            );
+                          });
+                        } else {
+                          _leakTimer?.cancel();
+                        }
                       });
-                    } else {
-                      _leakTimer?.cancel();
-                    }
-                  });
-                },
-                child: Text(" Lick water in every second"),
-              ),
+                    },
+                    child: Text(" Lick water in every second"),
+                  ),
+                ),
+              ],
             ),
           ],
         )),
