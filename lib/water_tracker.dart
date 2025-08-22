@@ -85,6 +85,16 @@ class _water_trackerState extends State<water_tracker> {
                 ),
               ],
             ),
+            SizedBox(height: 10),
+            Wrap(
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: Icon(Icons.water_drop),
+                  label: Text("Add Water"),
+                ),
+              ],
+            ),
           ],
         )),
       ),
