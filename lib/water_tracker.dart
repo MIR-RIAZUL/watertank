@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'add_water_button.dart';
@@ -13,6 +15,9 @@ class _water_trackerState extends State<water_tracker> {
   int current_intake = 0;
   final int goal_intake = 2000;
   final int max_intake = 10000;
+  Timer? timer;
+  // Add this import at the top of the file
+  Timer? _leakTimer;
 
   void add_water(int amount) {
     setState(() {
@@ -120,9 +125,57 @@ class _water_trackerState extends State<water_tracker> {
                 child: Text("Reset tank"),
               ),
             ),
+            SizedBox(height: 10),
+            SizedBox(
+              child: ElevatedButton(
+                // Optional: cancel leak when filling, then fill the tank
+                onPressed: () {
+                  _leakTimer?.cancel();
+                  setState(() {
+                    current_intake = max_intake;
+                  });
+                },
+                child: Text("Fill tank"),
+              ),
+            ),
+            SizedBox(height: 10),
+            SizedBox(
+              child: ElevatedButton(
+                // Replace your "leak" button onPressed with this
+                onPressed: () {
+                  // Do NOT call initState() here
+                  if (_leakTimer?.isActive ?? false)
+                    return; // prevent multiple timers
+
+                  _leakTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+                    if (!mounted) return;
+
+                    if (current_intake > 0) {
+                      setState(() {
+                        // adjust the step as needed (e.g., 1, 10, 100 mL per second)
+                        current_intake = (current_intake - 1).clamp(
+                          0,
+                          max_intake,
+                        );
+                      });
+                    } else {
+                      _leakTimer?.cancel();
+                    }
+                  });
+                },
+                child: Text(" Lick water in every second"),
+              ),
+            ),
           ],
         )),
       ),
     );
+  }
+
+  // Also add this to your State to clean up the timer
+  @override
+  void dispose() {
+    _leakTimer?.cancel();
+    super.dispose();
   }
 }
